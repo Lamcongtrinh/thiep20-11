@@ -11,27 +11,43 @@
       margin: 0;
       padding: 0;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(180deg, rgba(255,192,203,0.25), rgba(255,255,255,0.9)),
-                  url('https://i.imgur.com/4UjBzgb.png') no-repeat center/cover;
+      background: linear-gradient(180deg, rgba(255,192,203,0.25), rgba(255,255,255,0.9));
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #333;
       overflow: hidden;
+      transition: background 1s ease;
     }
 
+    /* Ảnh bó hoa */
+    .bouquet {
+      width: 300px;
+      cursor: pointer;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .bouquet:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    /* Thiệp */
     .card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(8px);
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       padding: 40px 50px;
       max-width: 600px;
       text-align: center;
-      animation: fadeIn 1.4s ease;
+      animation: fadeIn 1s ease;
       position: relative;
       z-index: 2;
+      display: none; /* Ẩn trước khi click bó hoa */
     }
 
     @keyframes fadeIn {
@@ -66,16 +82,6 @@
       color: #e75480;
     }
 
-    .flower {
-      position: absolute;
-      width: 80px;
-      opacity: 0.25;
-      pointer-events: none;
-    }
-
-    .flower1 { top: 20px; left: 20px; }
-    .flower2 { bottom: 20px; right: 20px; transform: rotate(180deg); }
-
     .music-hint {
       position: absolute;
       bottom: 10px;
@@ -90,6 +96,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       cursor: pointer;
       z-index: 3;
+      display: none; /* chỉ hiện khi mở thiệp */
     }
 
     @media (max-width: 600px) {
@@ -99,19 +106,22 @@
   </style>
 </head>
 <body>
-  <div class="card">
-    <img src="https://i.imgur.com/bkKKg6E.png" class="flower flower1" alt="">
-    <img src="https://i.imgur.com/bkKKg6E.png" class="flower flower2" alt="">
 
+  <!-- Ảnh bó hoa -->
+ <img id="bouquet" src="trinh.jpg" alt="Bó hoa" class="bouquet">
+
+
+  <!-- Thiệp -->
+  <div class="card" id="card">
     <h1>Chúc mừng 20/10</h1>
-    <div class="subtitle">Gửi đến những người phụ nữ tuyệt vời nhất 💐</div>
-
+    <div class="subtitle">Gửi đến người phụ nữ tuyệt vời nhất 💐</div>
     <p>
-      Nhân ngày Phụ nữ Việt Nam 20/10,<br>
-      xin chúc bạn luôn xinh đẹp, hạnh phúc và tràn đầy năng lượng.<br>
-      Cảm ơn vì những yêu thương, sự dịu dàng và nguồn cảm hứng mà bạn mang lại.
+      Mẹ ơi,<br>
+      Nhân ngày <strong>Phụ nữ Việt Nam 20/10</strong>, con chúc mẹ thật nhiều niềm vui, luôn mạnh khỏe và hạnh phúc.<br>
+      Cảm ơn mẹ vì luôn quan tâm, thương con như con ruột.<br>
+      Có mẹ nuôi như mẹ là con thấy may mắn lắm luôn đó 🥰<br><br>
+      <em>Chúc mẹ một ngày thật đặc biệt và tràn đầy yêu thương! 💖</em>
     </p>
-
     <div class="from">— Thân gửi từ <strong>Lâm Công Trình</strong></div>
   </div>
 
@@ -123,17 +133,29 @@
   <div class="music-hint" id="playBtn">🎵 Bấm để bật nhạc</div>
 
   <script>
+    const bouquet = document.getElementById('bouquet');
+    const card = document.getElementById('card');
     const audio = document.getElementById('bgm');
     const btn = document.getElementById('playBtn');
+
     let playing = false;
 
-    function toggleMusic() {
+    // Khi click vào bó hoa -> hiện thiệp
+    bouquet.addEventListener('click', () => {
+      bouquet.style.display = 'none';
+      card.style.display = 'block';
+      btn.style.display = 'block';
+      document.body.style.background = "linear-gradient(180deg, #ffe4e9, #fffafc)";
+    });
+
+    // Nhạc nền
+    btn.addEventListener('click', () => {
       if (!playing) {
-        audio.play().then(()=>{
+        audio.play().then(() => {
           playing = true;
           btn.textContent = "🎶 Đang phát nhạc nền";
           btn.style.background = "rgba(255,255,255,0.8)";
-        }).catch(()=>{
+        }).catch(() => {
           alert("Trình duyệt chặn tự động phát, vui lòng bấm lại để bật nhạc.");
         });
       } else {
@@ -141,9 +163,8 @@
         playing = false;
         btn.textContent = "🎵 Bấm để bật nhạc";
       }
-    }
-
-    btn.addEventListener('click', toggleMusic);
+    });
   </script>
+
 </body>
 </html>
