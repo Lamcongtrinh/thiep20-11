@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chúc mừng 20/10</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(180deg, rgba(255,192,203,0.25), rgba(255,255,255,0.9)),
+                  url('https://i.imgur.com/4UjBzgb.png') no-repeat center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      padding: 40px 50px;
+      max-width: 600px;
+      text-align: center;
+      animation: fadeIn 1.4s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      color: #e75480;
+      font-size: 46px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-weight: 600;
+      color: #b44b68;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 16px;
+      color: #444;
+      margin: 0 0 25px;
+    }
+
+    .from {
+      margin-top: 25px;
+      font-weight: 600;
+      color: #e75480;
+    }
+
+    .flower {
+      position: absolute;
+      width: 80px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .flower1 { top: 20px; left: 20px; }
+    .flower2 { bottom: 20px; right: 20px; transform: rotate(180deg); }
+
+    .music-hint {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: #b44b68;
+      background: rgba(255,255,255,0.6);
+      padding: 6px 12px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 25px; }
+      h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="https://i.imgur.com/bkKKg6E.png" class="flower flower1" alt="">
+    <img src="https://i.imgur.com/bkKKg6E.png" class="flower flower2" alt="">
+
+    <h1>Chúc mừng 20/10</h1>
+    <div class="subtitle">Gửi đến những người phụ nữ tuyệt vời nhất 💐</div>
+
+    <p>
+      Nhân ngày Phụ nữ Việt Nam 20/10,<br>
+      xin chúc bạn luôn xinh đẹp, hạnh phúc và tràn đầy năng lượng.<br>
+      Cảm ơn vì những yêu thương, sự dịu dàng và nguồn cảm hứng mà bạn mang lại.
+    </p>
+
+    <div class="from">— Thân gửi từ <strong>Lâm Công Trình</strong></div>
+  </div>
+
+  <!-- Nhạc nền -->
+  <audio id="bgm" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_3d7dfb77ef.mp3?filename=romantic-piano-141130.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="music-hint" id="playBtn">🎵 Bấm để bật nhạc</div>
+
+  <script>
+    const audio = document.getElementById('bgm');
+    const btn = document.getElementById('playBtn');
+    let playing = false;
+
+    function toggleMusic() {
+      if (!playing) {
+        audio.play().then(()=>{
+          playing = true;
+          btn.textContent = "🎶 Đang phát nhạc nền";
+          btn.style.background = "rgba(255,255,255,0.8)";
+        }).catch(()=>{
+          alert("Trình duyệt chặn tự động phát, vui lòng bấm lại để bật nhạc.");
+        });
+      } else {
+        audio.pause();
+        playing = false;
+        btn.textContent = "🎵 Bấm để bật nhạc";
+      }
+    }
+
+    btn.addEventListener('click', toggleMusic);
+  </script>
+</body>
+</html>
